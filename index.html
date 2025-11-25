@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click the Ball Game</title>
+    <style>
+        /* CSS styles for the game */
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #gameArea {
+            width: 400px;
+            height: 400px;
+            border: 2px solid black;
+            position: relative;
+            margin: 0 auto;
+            background-color: #f0f0f0;
+            cursor: crosshair;
+        }
+
+        .ball {
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Click the Ball!</h1>
+        <p>Score: <span id="score">0</span></p>
+        <div id="gameArea">
+            <div class="ball" id="ball" onclick="ballClicked()"></div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript logic for the game
+        let score = 0;
+        const ball = document.getElementById('ball');
+        const gameArea = document.getElementById('gameArea');
+
+        function moveBall() {
+            // Get random positions within the game area boundaries
+            const maxX = gameArea.offsetWidth - ball.offsetWidth;
+            const maxY = gameArea.offsetHeight - ball.offsetHeight;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            ball.style.left = randomX + 'px';
+            ball.style.top = randomY + 'px';
+        }
+
+        function ballClicked() {
+            score++;
+            document.getElementById('score').textContent = score;
+            moveBall();
+        }
+
+        // Move the ball initially and then every second
+        moveBall();
+        setInterval(moveBall, 1000); // Change position every 1 second
+    </script>
+</body>
+</html>
